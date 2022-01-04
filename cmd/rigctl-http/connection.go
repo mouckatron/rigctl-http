@@ -14,6 +14,7 @@ type RigConnection interface {
 //TODO raw should disappear in future when it is further developed
 type CommandResponse struct {
 	Success bool        `json:"success"`
+	Error   string      `json:"error"`
 	Raw     string      `json:"raw"`
 	Data    interface{} `json:"data"`
 }

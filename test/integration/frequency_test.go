@@ -10,6 +10,7 @@ func TestGetFrequency(t *testing.T) {
 
 	want := `{
     "success": true,
+    "error": "",
     "raw": "get_freq:\nFrequency: 145000000\nRPRT 0\n",
     "data": {
         "frequency": "145000000"
@@ -41,6 +42,7 @@ func TestSetFrequency(t *testing.T) {
 
 	want := `{
     "success": true,
+    "error": "",
     "raw": "set_freq: 145500000\nRPRT 0\n",
     "data": {
         "frequency": "145500000"

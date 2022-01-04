@@ -9,6 +9,7 @@ import (
 func TestGetPowerstat(t *testing.T) {
 	want := `{
     "success": true,
+    "error": "",
     "raw": "get_powerstat:\nPower Status: 1\nRPRT 0\n",
     "data": {
         "status": 1
@@ -28,6 +29,7 @@ func TestGetPowerstat(t *testing.T) {
 func TestSetPowerstat(t *testing.T) {
 	want := `{
     "success": true,
+    "error": "",
     "raw": "set_powerstat: 1\nRPRT 0\n",
     "data": {
         "status": 1
