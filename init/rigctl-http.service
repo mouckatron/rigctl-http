@@ -1,0 +1,8 @@
+[Unit]
+Description=HTTP interface service for rigctld
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=rigctl-http
