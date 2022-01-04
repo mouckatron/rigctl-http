@@ -8,3 +8,6 @@ integration: build
 	cd test/integration && go test || true
 	-killall rigctld
 	-killall rigctl-http
+
+clean:
+	find . -type f -name '*~' | xargs rm
