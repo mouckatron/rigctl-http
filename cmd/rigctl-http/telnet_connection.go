@@ -52,26 +52,26 @@ func (c *TelnetRigConnection) GetFreq() CommandResponse {
 
   raw := c.command("+f")
 
-  return telnetParseSimpleResponse(raw, Frequency{})
+  return telnetParseSimpleResponse(raw, &Frequency{})
 }
 
 // SetFreq rigctl set_freq
 func (c *TelnetRigConnection) SetFreq(f Frequency) CommandResponse {
 
   raw := c.command(fmt.Sprintf("+F %s", f.Frequency))
-	return telnetParseSimpleResponse(raw, f)
+	return telnetParseSimpleResponse(raw, &f)
 }
 
 func (c *TelnetRigConnection) GetPowerstat() CommandResponse {
   raw := c.command("+\x88")
 
-  return telnetParseSimpleResponse(raw, Powerstat{})
+  return telnetParseSimpleResponse(raw, &Powerstat{})
 }
 
 func (c *TelnetRigConnection) SetPowerstat(p Powerstat) CommandResponse {
   raw := c.command(fmt.Sprintf("+\x87 %d", p.Status))
 
-  return telnetParseSimpleResponse(raw, p)
+  return telnetParseSimpleResponse(raw, &p)
 }
 
 func (c *TelnetRigConnection) GetRigInfo() CommandResponse {
