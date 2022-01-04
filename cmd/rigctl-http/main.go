@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,8 +20,10 @@ func main() {
 	const rcHostHelp = "Address rigctld is running at"
 	var rcPort int
 	const rcPortHelp = "Port rigctld is running on"
+	var ginProduction bool = true
 
-	// get arguments
+	// normal arguments
+	flag.CommandLine = flag.NewFlagSet(os.Args[0], flag.ContinueOnError)
 	flag.StringVar(&myHost, "host", "localhost", myHostHelp)
 	flag.IntVar(&myPort, "port", 8080, myPortHelp)
 
@@ -28,6 +31,13 @@ func main() {
 	flag.IntVar(&rcPort, "rcport", 4532, rcPortHelp)
 
 	flag.Parse()
+
+	// hidden args!
+	for _, arg := range os.Args[1:] {
+		if arg == "-gin-debug" {
+			ginProduction = false
+		}
+	}
 
 	// decide if we're using hamlib or telnet (always telnet for now)
 
@@ -37,6 +47,9 @@ func main() {
 	rigConnection.init()
 
 	// start the API server which uses the RigConnection thing
+	if ginProduction {
+		gin.SetMode(gin.ReleaseMode)
+	}
 	router := gin.Default()
 	routerPaths(router)
 	router.Run(fmt.Sprintf("%s:%d", myHost, myPort))
