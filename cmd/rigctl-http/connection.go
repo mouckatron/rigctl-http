@@ -9,6 +9,8 @@ type RigConnection interface {
 	cmdGetPowerstat() CommandResponse
 	cmdGetRigInfo() CommandResponse
 	cmdDumpCaps() CommandResponse
+	cmdExecVFOOp(o VFOOp) CommandResponse
+	cmdVFOOp_options() CommandResponse
 }
 
 //TODO raw should disappear in future when it is further developed

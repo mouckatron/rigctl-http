@@ -55,7 +55,7 @@ func telnetParseSimpleResponse(r string, o simpleResponse) CommandResponse {
 	var result string
 
 	if len(split) == 4 { // get queries
-		dataline, result = split[1], split[2] //len(split)-2], split[:len(split)-2]
+		dataline, result = split[1], split[2]
 		kv := strings.Split(dataline, ":")
 		o.simpleParse(strings.TrimSpace(kv[1]))
 	} else { // set queries
@@ -66,6 +66,23 @@ func telnetParseSimpleResponse(r string, o simpleResponse) CommandResponse {
 		Success: telnetIsResultSuccess(result),
 		Raw:     r,
 		Data:    o}
+}
+
+func telnetParseSimpleListResponse(r string, o simpleListResponse) CommandResponse {
+	split := strings.Split(r, "\n")
+
+	var dataline string
+	var result string
+
+	dataline, result = split[1], split[2]
+
+	o.simpleListParse(dataline)
+
+	return CommandResponse{
+		Success: telnetIsResultSuccess(result),
+		Raw:     r,
+		Data:    o}
+
 }
 
 func telnetIsResultSuccess(r string) bool {
