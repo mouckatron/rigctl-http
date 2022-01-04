@@ -1,19 +1,19 @@
 package main
 
+// interfaced in case I am ever able to get hamlib inside Go!
 type RigConnection interface {
-  init()
-	SetFreq(f Frequency) CommandResponse
-	GetFreq() CommandResponse
-  SetPowerstat(p Powerstat) CommandResponse
-  GetPowerstat() CommandResponse
-  GetRigInfo() CommandResponse
-  DumpCaps() CommandResponse
+	init()
+	cmdSetFreq(f Frequency) CommandResponse
+	cmdGetFreq() CommandResponse
+	cmdSetPowerstat(p Powerstat) CommandResponse
+	cmdGetPowerstat() CommandResponse
+	cmdGetRigInfo() CommandResponse
+	cmdDumpCaps() CommandResponse
 }
 
+//TODO raw should disappear in future when it is further developed
 type CommandResponse struct {
-	Success bool `json:"success"`
-	Raw     string `json:"raw"`
-  Data    interface{} `json:"data"`
+	Success bool        `json:"success"`
+	Raw     string      `json:"raw"`
+	Data    interface{} `json:"data"`
 }
-
-
