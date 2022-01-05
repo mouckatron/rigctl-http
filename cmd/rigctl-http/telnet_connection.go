@@ -85,6 +85,28 @@ func telnetParseSimpleListResponse(r string, o simpleListResponse) CommandRespon
 
 }
 
+func telnetParseKVResponse(r string, o kvResponse) CommandResponse {
+	split := strings.Split(r, "\n")
+
+	var result string = split[len(split)-2]
+
+  datalines := split[1:len(split)-2]
+
+  kvData := make(map[string]string)
+  
+  for _, l := range datalines {
+    parts := strings.Split(l, ":")
+    kvData[parts[0]] = strings.TrimSpace(parts[1])
+  }
+
+  o.kvParse(kvData)
+
+	return CommandResponse{
+		Success: telnetIsResultSuccess(result),
+		Raw:     r,
+		Data:    o}
+}
+
 func telnetIsResultSuccess(r string) bool {
 	parts := strings.Split(r, " ")
 	return rawToInt(parts[1]) == 0

@@ -10,6 +10,10 @@ type simpleListResponse interface {
 	simpleListParse(s string)
 }
 
+type kvResponse interface {
+  kvParse(m map[string]string)
+}
+
 type cmdOptions struct {
 	Options []string `json:"options"`
 }
