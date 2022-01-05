@@ -109,11 +109,6 @@ func telnetParseKVResponse(r string, o kvResponse) CommandResponse {
 
 func telnetIsResultSuccess(r string) bool {
 	parts := strings.Split(r, " ")
-	return rawToInt(parts[1]) == 0
+	return strToInt(parts[1]) == 0
 }
 
-func rawToInt(raw string) int {
-	stripped := strings.TrimSpace(raw)
-	toint, _ := strconv.Atoi(stripped)
-	return toint
-}

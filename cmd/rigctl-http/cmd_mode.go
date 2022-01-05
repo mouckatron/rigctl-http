@@ -44,7 +44,7 @@ func (o *Mode) simpleParse(s string) {
 
 func (o *Mode) kvParse(m map[string]string) {
   o.Mode = m["Mode"]
-  o.Passband = rawToInt(m["Passband"])
+  o.Passband = strToInt(m["Passband"])
 }
 
 // #############################################################################

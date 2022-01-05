@@ -32,7 +32,7 @@ type Powerstat struct {
 }
 
 func (o *Powerstat) simpleParse(s string) {
-	o.Status = rawToInt(s)
+	o.Status = strToInt(s)
 }
 
 // #############################################################################
