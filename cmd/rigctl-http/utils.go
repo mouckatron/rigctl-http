@@ -1,5 +1,10 @@
 package main
 
+import (
+  "strconv"
+  "strings"
+)
+
 // check if str exists in list []string
 // often used to test against options available on the rig
 func hasOption(s []string, str string) bool {

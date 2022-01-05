@@ -4,7 +4,7 @@ build:
 
 integration: build
 	rigctld &
-	cmd/rigctl-http/rigctl-http &
+	cmd/rigctl-http/rigctl-http -gin-debug &
 	cd test/integration && go test || true
 	-killall rigctld
 	-killall rigctl-http
