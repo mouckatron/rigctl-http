@@ -66,7 +66,7 @@ func TestVFOOp_options(t *testing.T) {
     }
 }`
 
-	got, err := httpGet("/vfo_op/_opts")
+	got, err := httpGet("/vfo_op/_options")
 	if err != nil {
 		t.Error(err)
 	}

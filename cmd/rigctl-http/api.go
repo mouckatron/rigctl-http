@@ -11,7 +11,7 @@ func routerPaths(r *gin.Engine) {
 	r.POST("/powerstat", apiSetPowerstat)
 	r.GET("/rig_info", apiGetRigInfo)
 	r.GET("/dump_caps", apiDumpCaps)
-	r.GET("/vfo_op/_opts", apiVFOOp_options)
+	r.GET("/vfo_op/_options", apiVFOOp_options)
 	r.POST("/vfo_op", apiExecVFOOp)
   r.GET("/mode", apiGetMode)
   r.POST("/mode", apiSetMode)
