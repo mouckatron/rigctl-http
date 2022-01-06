@@ -48,8 +48,17 @@ func httpGetJSON(path string) (map[string]interface{}, error) {
 	return j, err
 }
 
-func httpPostJSON(path string, data []byte) ([]byte, error) {
-	got, err := http.Post(url(path), "application/json", bytes.NewBuffer(data))
+func httpPutJSON(path string, data []byte) ([]byte, error) {
+	client := &http.Client{}
+
+	req, err := http.NewRequest(http.MethodPut, url(path), bytes.NewBuffer(data))
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+	got, err := client.Do(req)
 
 	if err != nil {
 		fmt.Println(got)
