@@ -6,6 +6,8 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+  "github.com/gin-contrib/cors"
+  "github.com/mouckatron/rigctl-http/cmd/rigctl-http/ui"
 )
 
 var rigConnection RigConnection
@@ -51,6 +53,8 @@ func main() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	router := gin.Default()
+  router.Use(cors.Default())
 	routerPaths(router)
+  ui.RouterPaths(router)
 	router.Run(fmt.Sprintf("%s:%d", myHost, myPort))
 }

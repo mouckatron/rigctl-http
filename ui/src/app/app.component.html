@@ -1,0 +1,4 @@
+<button (click)="powerOn();">Power On</button>
+<button (click)="powerOff();">Power Off</button>
+
+<input type="text" #frequencyInput [value]="frequency" (keyup.enter)="setFrequency(frequencyInput.value);" />

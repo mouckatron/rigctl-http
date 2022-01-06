@@ -1,0 +1,75 @@
+openapi: 3.1.0
+info:
+  title: rigctl-http
+  version: '0.1'
+  license:
+    name: MIT
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /frequency:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                  error:
+                    type: string
+                  raw:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Frequency'
+    put:
+      requestBody:
+        content:
+          application/json:
+            $ref: '#/components/schemas/Frequency'
+  /powerstat:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                  error:
+                    type: string
+                  raw:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Powerstat'
+    put:
+      requestBody:
+        content:
+          application/json:
+            $ref: '#/components/schemas/Powerstat'
+components:
+  schemas:
+    Frequency:
+      title: Frequency
+      type: object
+      examples:
+        - frequency: 145500000
+      properties:
+        frequency:
+          type: string
+      required:
+        - frequency
+    Powerstat:
+      title: Powerstat
+      type: object
+      examples:
+        - status: 1
+      properties:
+        status:
+          type: integer
+          minimum: 0
+          maximum: 2
+      required:
+        - status

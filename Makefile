@@ -1,5 +1,12 @@
+build: build_ui embed_ui build_go
 
-build:
+build_ui:
+	cd ui && ng build --base-href /ui/
+
+embed_ui:
+	scripts/embed_ui.sh
+
+build_go:
 	cd cmd/rigctl-http && go build
 
 integration: build
@@ -11,3 +18,6 @@ integration: build
 
 clean:
 	find . -type f -name '*~' | xargs rm
+
+openapi:
+	ng-openapi-gen --input api/reference/rigctl-http.yaml --output ui/src/app/api
