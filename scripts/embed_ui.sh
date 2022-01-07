@@ -5,6 +5,8 @@ ROOT_DIR=$(dirname $SCRIPT_DIR)
 UI_IN=$ROOT_DIR/ui/dist/ui
 UI_OUT=$ROOT_DIR/cmd/rigctl-http/ui
 
+rm $UI_OUT/*.go
+
 cat <<EOF > $UI_OUT/main.go
 package ui
 
@@ -30,21 +32,22 @@ func RouterPaths(r *gin.Engine) {
 EOF
 
 
-for f in $(ls $UI_IN)
+for f in $(ls $UI_IN/*.js $UI_IN/*.css $UI_IN/*.html)
 do
-    out=$UI_OUT/$f.b64.go
-    varname=$(echo $f | tr '.' '_' | tr '-' '_')
+    basef=$(basename $f)
+    out=$UI_OUT/$basef.b64.go
+    varname=$(echo $basef | tr '.' '_' | tr '-' '_')
 
     echo "package ui" > $out
     echo "" >> $out
     echo -n "var $varname = \`" >> $out
-    base64 $UI_IN/$f >> $UI_OUT/$f.b64.go
+    base64 $f >> $out
     echo "\`" >> $out
 
     MIME=$(mimetype -b $UI_IN/$f)
 
     cat <<EOF >> $UI_OUT/main.go
-  r.GET("/ui/$f", func(c *gin.Context){
+  r.GET("/ui/$basef", func(c *gin.Context){
     decoded, _ := b64.StdEncoding.DecodeString($varname)
     c.Header("Content-Type", "$MIME; charset=utf8")
     c.String(http.StatusOK, string(decoded))

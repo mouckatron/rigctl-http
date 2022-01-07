@@ -28,6 +28,20 @@ paths:
         content:
           application/json:
             $ref: '#/components/schemas/Frequency'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                  error:
+                    type: string
+                  raw:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Frequency'
   /powerstat:
     get:
       responses:
@@ -49,8 +63,89 @@ paths:
         content:
           application/json:
             $ref: '#/components/schemas/Powerstat'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                  error:
+                    type: string
+                  raw:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Powerstat'
+  /mode:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                  error:
+                    type: string
+                  raw:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/Mode'
+    put:
+      requestBody:
+        content:
+          application/json:
+            $ref: '#/components/schemas/Mode'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                  error:
+                    type: string
+                  raw:
+                    type: string
+                  data:
+                    oneof:
+                      - $ref: '#/components/schemas/Mode'
+                      - $ref: '#/components/schemas/cmdOptions'
+  /mode/_options:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                  error:
+                    type: string
+                  raw:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/cmdOptions'
 components:
   schemas:
+    cmdOptions:
+      title: cmdOptions
+      type: object
+      examples:
+        - options:
+            - FM
+            - AM
+            - USB
+            - LSB
+      properties:
+        options:
+          type: array
+          items:
+            type: string
     Frequency:
       title: Frequency
       type: object
@@ -73,3 +168,13 @@ components:
           maximum: 2
       required:
         - status
+    Mode:
+      title: Mode
+      type: object
+      examples:
+        - mode: FM
+      properties:
+        mode:
+          type: string
+      required:
+        - mode

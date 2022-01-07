@@ -10,7 +10,9 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { Frequency } from '../models/frequency';
+import { Mode } from '../models/mode';
 import { Powerstat } from '../models/powerstat';
+import { CmdOptions } from '../models/cmd-options';
 
 @Injectable({
   providedIn: 'root',
@@ -104,7 +106,12 @@ export class ApiService extends BaseService {
    */
   frequencyPut$Response(params?: {
     body?: any
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: Frequency;
+}>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApiService.FrequencyPutPath, 'put');
     if (params) {
@@ -112,12 +119,17 @@ export class ApiService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<{
+        'success'?: boolean;
+        'error'?: string;
+        'raw'?: string;
+        'data'?: Frequency;
+        }>;
       })
     );
   }
@@ -130,10 +142,25 @@ export class ApiService extends BaseService {
    */
   frequencyPut(params?: {
     body?: any
-  }): Observable<void> {
+  }): Observable<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: Frequency;
+}> {
 
     return this.frequencyPut$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: Frequency;
+}>) => r.body as {
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: Frequency;
+})
     );
   }
 
@@ -218,7 +245,12 @@ export class ApiService extends BaseService {
    */
   powerstatPut$Response(params?: {
     body?: any
-  }): Observable<StrictHttpResponse<void>> {
+  }): Observable<StrictHttpResponse<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: Powerstat;
+}>> {
 
     const rb = new RequestBuilder(this.rootUrl, ApiService.PowerstatPutPath, 'put');
     if (params) {
@@ -226,12 +258,17 @@ export class ApiService extends BaseService {
     }
 
     return this.http.request(rb.build({
-      responseType: 'text',
-      accept: '*/*'
+      responseType: 'json',
+      accept: 'application/json'
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
+        return r as StrictHttpResponse<{
+        'success'?: boolean;
+        'error'?: string;
+        'raw'?: string;
+        'data'?: Powerstat;
+        }>;
       })
     );
   }
@@ -244,10 +281,232 @@ export class ApiService extends BaseService {
    */
   powerstatPut(params?: {
     body?: any
-  }): Observable<void> {
+  }): Observable<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: Powerstat;
+}> {
 
     return this.powerstatPut$Response(params).pipe(
-      map((r: StrictHttpResponse<void>) => r.body as void)
+      map((r: StrictHttpResponse<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: Powerstat;
+}>) => r.body as {
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: Powerstat;
+})
+    );
+  }
+
+  /**
+   * Path part for operation modeGet
+   */
+  static readonly ModeGetPath = '/mode';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `modeGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  modeGet$Response(params?: {
+  }): Observable<StrictHttpResponse<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: Mode;
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ApiService.ModeGetPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        'success'?: boolean;
+        'error'?: string;
+        'raw'?: string;
+        'data'?: Mode;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `modeGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  modeGet(params?: {
+  }): Observable<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: Mode;
+}> {
+
+    return this.modeGet$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: Mode;
+}>) => r.body as {
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: Mode;
+})
+    );
+  }
+
+  /**
+   * Path part for operation modePut
+   */
+  static readonly ModePutPath = '/mode';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `modePut()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  modePut$Response(params?: {
+    body?: any
+  }): Observable<StrictHttpResponse<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: any;
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ApiService.ModePutPath, 'put');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        'success'?: boolean;
+        'error'?: string;
+        'raw'?: string;
+        'data'?: any;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `modePut$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  modePut(params?: {
+    body?: any
+  }): Observable<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: any;
+}> {
+
+    return this.modePut$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: any;
+}>) => r.body as {
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: any;
+})
+    );
+  }
+
+  /**
+   * Path part for operation modeOptionsGet
+   */
+  static readonly ModeOptionsGetPath = '/mode/_options';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `modeOptionsGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  modeOptionsGet$Response(params?: {
+  }): Observable<StrictHttpResponse<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: CmdOptions;
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ApiService.ModeOptionsGetPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        'success'?: boolean;
+        'error'?: string;
+        'raw'?: string;
+        'data'?: CmdOptions;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `modeOptionsGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  modeOptionsGet(params?: {
+  }): Observable<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: CmdOptions;
+}> {
+
+    return this.modeOptionsGet$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: CmdOptions;
+}>) => r.body as {
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: CmdOptions;
+})
     );
   }
 

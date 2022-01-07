@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { ApiService } from './api/services/api.service';
 
 @Component({
@@ -10,16 +10,21 @@ export class AppComponent {
     title = 'ui';
 
     frequency: string
+    mode: string
+    modeOptions: string[]
 
-    constructor(private apiService: ApiService) {}
+    constructor(private apiService: ApiService,
+                private changeDetection: ChangeDetectorRef) {}
 
     ngOnInit(): void {
+        console.log("init")
         this.getFrequency();
+        this.getModeOptions();
+        this.getMode();
     }
 
     powerOn(): void {
-        this.apiService.powerstatPut({"body": {"status": 1}}).subscribe(resp => console.log(resp));
-        this.getFrequency();
+        this.apiService.powerstatPut({"body": {"status": 1}}).subscribe(resp => this.ngOnInit());
     }
 
     powerOff(): void {
@@ -33,10 +38,24 @@ export class AppComponent {
     }
 
     setFrequency(f: string): void {
-        console.log("Updating freq "+f)
-        this.apiService.frequencyPut({"body": {"frequency": f}}).subscribe(function(resp){
-            console.log(resp);
-            this.frequency = '123456789'
-        });
+        this.apiService.frequencyPut({"body": {"frequency": f}}).subscribe(resp =>
+            this.frequency = resp.data.frequency
+        );
     }
+
+    getMode(): void {
+        this.apiService.modeGet().subscribe(resp => this.mode = resp.data.mode)
+    }
+
+    getModeOptions(): void {
+        this.apiService.modeOptionsGet().subscribe(resp => this.modeOptions = resp.data.options)
+    }
+
+    setMode(m: string): void {
+        console.log("Setting mode " +m)
+        this.apiService.modePut({"body": {"mode": m}}).subscribe(resp => {
+            if(!resp.success) this.modeOptions = resp.data.options
+        })
+    }
+
 }

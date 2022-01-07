@@ -1,13 +1,17 @@
 build: build_ui embed_ui build_go
 
 build_ui:
-	cd ui && ng build --base-href /ui/
+	cd ui && npm i
+	cd ui && ng build --configuration production --base-href /ui/
 
 embed_ui:
 	scripts/embed_ui.sh
 
 build_go:
 	cd cmd/rigctl-http && go build
+
+xcompile:
+	cd cmd/rigctl-http && env GOOS=linux GOARCH=arm GOARM=6 go build -o rigctl-http.arm
 
 integration: build
 	rigctld &
