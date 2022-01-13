@@ -13,7 +13,7 @@ func routerPaths(r *gin.Engine) {
 	r.GET("/dump_caps", apiDumpCaps)
 	r.GET("/vfo_op/_options", apiVFOOp_options)
 	r.PUT("/vfo_op", apiExecVFOOp)
-  r.GET("/mode", apiGetMode)
-  r.PUT("/mode", apiSetMode)
-  r.GET("/mode/_options", apiMode_options)
+	r.GET("/mode", apiGetMode)
+	r.PUT("/mode", apiSetMode)
+	r.GET("/mode/_options", apiMode_options)
 }

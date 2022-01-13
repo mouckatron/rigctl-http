@@ -49,7 +49,7 @@ func TestSetFrequency(t *testing.T) {
     }
 }`
 
-	got, err := httpPostJSON("/frequency", []byte(`{"frequency":"145500000"}`))
+	got, err := httpPutJSON("/frequency", []byte(`{"frequency":"145500000"}`))
 	if err != nil {
 		t.Error(err)
 	}

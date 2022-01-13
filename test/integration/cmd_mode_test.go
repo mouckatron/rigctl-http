@@ -1,13 +1,13 @@
 package integrationtest
 
 import (
-  "testing"
+	"testing"
 
-  "github.com/andreyvit/diff"
+	"github.com/andreyvit/diff"
 )
 
 func TestGetModeNoop(t *testing.T) {
-  want := `{
+	want := `{
     "success": false,
     "error": "Option not available on this rig, see data for available options",
     "raw": "",
@@ -26,18 +26,18 @@ func TestGetModeNoop(t *testing.T) {
     }
 }`
 
-  got, err := httpPostJSON("/mode", []byte(`{"mode":"NOOP","passband":0}`))
-  if err != nil {
-    t.Error(err)
-  }
+	got, err := httpPutJSON("/mode", []byte(`{"mode":"NOOP","passband":0}`))
+	if err != nil {
+		t.Error(err)
+	}
 
-  if string(got) != want {
-    t.Errorf("Did not get correct response\n%v", diff.LineDiff(want, string(got)))
-  }
+	if string(got) != want {
+		t.Errorf("Did not get correct response\n%v", diff.LineDiff(want, string(got)))
+	}
 }
 
 func TestMode_options(t *testing.T) {
-  want := `{
+	want := `{
     "success": true,
     "error": "",
     "raw": "set_mode: ?\nAM CW USB LSB RTTY FM WFM CWR RTTYR \nRPRT 0\n",
@@ -56,7 +56,7 @@ func TestMode_options(t *testing.T) {
     }
 }`
 
-  got, err := httpGet("/mode/_options")
+	got, err := httpGet("/mode/_options")
 	if err != nil {
 		t.Error(err)
 	}
@@ -67,7 +67,7 @@ func TestMode_options(t *testing.T) {
 }
 
 func TestGetMode(t *testing.T) {
-  want := `{
+	want := `{
     "success": true,
     "error": "",
     "raw": "get_mode:\nMode: FM\nPassband: 15000\nRPRT 0\n",
@@ -77,7 +77,7 @@ func TestGetMode(t *testing.T) {
     }
 }`
 
-  got, err := httpGet("/mode")
+	got, err := httpGet("/mode")
 	if err != nil {
 		t.Error(err)
 	}
@@ -88,7 +88,7 @@ func TestGetMode(t *testing.T) {
 }
 
 func TestSetModeFM(t *testing.T) {
-  want := `{
+	want := `{
     "success": true,
     "error": "",
     "raw": "set_mode: AM 0\nRPRT 0\n",
@@ -98,12 +98,12 @@ func TestSetModeFM(t *testing.T) {
     }
 }`
 
-  got, err := httpPostJSON("/mode", []byte(`{"mode":"AM","passband":0}`))
-  if err != nil {
-    t.Error(err)
-  }
+	got, err := httpPutJSON("/mode", []byte(`{"mode":"AM","passband":0}`))
+	if err != nil {
+		t.Error(err)
+	}
 
-  if string(got) != want {
-    t.Errorf("Did not get correct response\n%v", diff.LineDiff(want, string(got)))
-  }
+	if string(got) != want {
+		t.Errorf("Did not get correct response\n%v", diff.LineDiff(want, string(got)))
+	}
 }

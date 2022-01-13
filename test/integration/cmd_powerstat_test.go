@@ -36,7 +36,7 @@ func TestSetPowerstat(t *testing.T) {
     }
 }`
 
-	got, err := httpPostJSON("/powerstat", []byte(`{"status": 1}`))
+	got, err := httpPutJSON("/powerstat", []byte(`{"status": 1}`))
 	if err != nil {
 		t.Error(err)
 	}

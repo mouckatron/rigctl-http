@@ -32,7 +32,7 @@ func TestVFOOpNoop(t *testing.T) {
     }
 }`
 
-	got, err := httpPostJSON("/vfo_op", []byte(`{"op":"NOOP"}`))
+	got, err := httpPutJSON("/vfo_op", []byte(`{"op":"NOOP"}`))
 	if err != nil {
 		t.Error(err)
 	}
@@ -86,7 +86,7 @@ func TestVFOOpTuneOp(t *testing.T) {
     }
 }`
 
-	got, err := httpPostJSON("/vfo_op", []byte(`{"op":"TUNE"}`))
+	got, err := httpPutJSON("/vfo_op", []byte(`{"op":"TUNE"}`))
 	if err != nil {
 		t.Error(err)
 	}
