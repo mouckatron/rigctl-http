@@ -20,6 +20,14 @@ integration: build
 	-killall rigctld
 	-killall rigctl-http
 
+run:
+	rigctld&
+	cmd/rigctl-http/rigctl-http -host 0.0.0.0 -gin-debug &
+
+stop:
+	-killall rigctld
+	-killall rigctl-http
+
 clean:
 	find . -type f -name '*~' | xargs rm
 
