@@ -11,9 +11,11 @@ type RigConnection interface {
 	cmdDumpCaps() CommandResponse
 	cmdExecVFOOp(o VFOOp) CommandResponse
 	cmdVFOOp_options() CommandResponse
-  cmdGetMode() CommandResponse
-  cmdSetMode(m Mode) CommandResponse
-  cmdMode_options() CommandResponse
+	cmdGetMode() CommandResponse
+	cmdSetMode(m Mode) CommandResponse
+	cmdMode_options() CommandResponse
+	cmdGetTuningStep() CommandResponse
+	cmdSetTuningStep(ts TuningStep) CommandResponse
 }
 
 //TODO raw should disappear in future when it is further developed

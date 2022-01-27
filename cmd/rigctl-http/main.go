@@ -12,6 +12,8 @@ import (
 
 var rigConnection RigConnection
 
+const VERSION string = "0.0.2"
+
 func main() {
 
 	var myHost string
@@ -22,6 +24,7 @@ func main() {
 	const rcHostHelp = "Address rigctld is running at"
 	var rcPort int
 	const rcPortHelp = "Port rigctld is running on"
+	var printVersion bool = false
 	var ginProduction bool = true
 
 	// normal arguments
@@ -32,6 +35,8 @@ func main() {
 	flag.StringVar(&rcHost, "rchost", "localhost", rcHostHelp)
 	flag.IntVar(&rcPort, "rcport", 4532, rcPortHelp)
 
+	flag.BoolVar(&printVersion, "version", false, "Print version and exit")
+
 	flag.Parse()
 
 	// hidden args!
@@ -39,6 +44,10 @@ func main() {
 		if arg == "-gin-debug" {
 			ginProduction = false
 		}
+	}
+
+	if printVersion {
+		printVersionAndExit()
 	}
 
 	// decide if we're using hamlib or telnet (always telnet for now)
@@ -57,4 +66,9 @@ func main() {
 	routerPaths(router)
   ui.RouterPaths(router)
 	router.Run(fmt.Sprintf("%s:%d", myHost, myPort))
+}
+
+func printVersionAndExit() {
+	fmt.Printf("Version: %s\n", VERSION)
+	os.Exit(0)
 }
