@@ -16,4 +16,6 @@ func routerPaths(r *gin.Engine) {
 	r.GET("/mode", apiGetMode)
 	r.PUT("/mode", apiSetMode)
 	r.GET("/mode/_options", apiMode_options)
+	r.GET("/tuning_step", apiGetTuningStep)
+	r.PUT("/tuning_step", apiSetTuningStep)
 }
