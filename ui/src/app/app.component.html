@@ -1,25 +1,25 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs">
+    <div class="col-xs-6 text-center">
       <button (click)="powerOn();" class="btn btn-success">Power On</button>
     </div>
-    <div class="col-xs">
+    <div class="col-xs-6 center text-center">
       <button (click)="powerOff();" class="btn btn-danger">Power Off</button>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-xs-12">
+  <div class="row text-center">
+    <div class="col-xs-12 text-center">
       <div class="input-group">
         <span class="input-group-btn">
           <button type="button" class="btn btn-danger btn-number" data-type="minus" (click)="decreaseFrequency();">
-            <i class="fas fa-minus"></i>
+            <fa-icon [icon]="faMinus"></fa-icon>
           </button>
         </span>
         <input type="text" #frequencyInput [value]="frequency" (keyup.enter)="setFrequency(frequencyInput.value);" class="form-control input-number" />
         <span class="input-group-btn">
           <button type="button" class="btn btn-success btn-number" data-type="plus" (click)="increaseFrequency();">
-            <i class="fas fa-plus"></i>
+            <fa-icon [icon]="faPlus"></fa-icon>
           </button>
         </span>
       </div>

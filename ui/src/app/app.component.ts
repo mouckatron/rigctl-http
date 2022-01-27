@@ -10,6 +10,8 @@ import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 })
 export class AppComponent {
     title = 'ui';
+    faPlus = faPlus;
+    faMinus = faMinus;
 
     frequency: string
     mode: string
@@ -38,13 +40,14 @@ export class AppComponent {
 
     getFrequency(): void {
         this.apiService.frequencyGet().subscribe(resp => (
-            this.frequency = resp.data.frequency
+            this.frequency = Number(resp.data.frequency).toLocaleString("en-GB") //TODO change to variable locale
         ))
     }
 
     setFrequency(f: string): void {
-        this.apiService.frequencyPut({"body": {"frequency": f}}).subscribe(resp =>
-            this.frequency = resp.data.frequency
+        console.log("setFrequency: "+f)
+        this.apiService.frequencyPut({"body": {"frequency": f.replace(/,/g, '')}}).subscribe(resp =>
+            this.frequency = Number(resp.data.frequency).toLocaleString("en-GB")
         );
     }
 
@@ -64,7 +67,9 @@ export class AppComponent {
     }
 
     getTuningStep(): void {
-        this.apiService.tuningStepGet().subscribe(resp => this.tuningStep = resp.data.step)
+        this.apiService.tuningStepGet().subscribe(resp => {
+            this.tuningStep = resp.data.step
+        })
     }
 
     setTuningStep(s: number): void {
@@ -74,8 +79,8 @@ export class AppComponent {
 
     increaseFrequency(): void {
         this.apiService.frequencyGet().subscribe(resp => {
-            this.frequency = resp.data.frequency
-            let _f = Number(this.frequency)
+            this.frequency = Number(resp.data.frequency).toLocaleString("en-GB")
+            let _f = Number(this.frequency.replace(/,/g, ''))
             let _new_f = (_f + this.tuningStep).toString(10)
             this.setFrequency(_new_f)
         })
@@ -83,8 +88,8 @@ export class AppComponent {
 
     decreaseFrequency(): void {
         this.apiService.frequencyGet().subscribe(resp => {
-            this.frequency = resp.data.frequency
-            let _f = Number(this.frequency)
+            this.frequency = Number(resp.data.frequency).toLocaleString("en-GB")
+            let _f = Number(this.frequency.replace(/,/g, ''))
             let _new_f = (_f - this.tuningStep).toString(10)
             this.setFrequency(_new_f)
         })
