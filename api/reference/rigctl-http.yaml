@@ -130,6 +130,42 @@ paths:
                     type: string
                   data:
                     $ref: '#/components/schemas/cmdOptions'
+  /tuning_step:
+    get:
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                  error:
+                    type: string
+                  raw:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/TuningStep'
+    put:
+      requestBody:
+        content:
+          application/json:
+            $ref: '#/components/schemas/TuningStep'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  success:
+                    type: boolean
+                  error:
+                    type: string
+                  raw:
+                    type: string
+                  data:
+                    oneof:
+                      - $ref: '#/components/schemas/TuningStep'
 components:
   schemas:
     cmdOptions:
@@ -178,3 +214,13 @@ components:
           type: string
       required:
         - mode
+    TuningStep:
+      title: TuningStep
+      type: object
+      examples:
+        - step: 25000
+      properties:
+        step:
+          type: integer
+      required:
+        - step

@@ -12,6 +12,7 @@ import { map, filter } from 'rxjs/operators';
 import { Frequency } from '../models/frequency';
 import { Mode } from '../models/mode';
 import { Powerstat } from '../models/powerstat';
+import { TuningStep } from '../models/tuning-step';
 import { CmdOptions } from '../models/cmd-options';
 
 @Injectable({
@@ -506,6 +507,145 @@ export class ApiService extends BaseService {
 'error'?: string;
 'raw'?: string;
 'data'?: CmdOptions;
+})
+    );
+  }
+
+  /**
+   * Path part for operation tuningStepGet
+   */
+  static readonly TuningStepGetPath = '/tuning_step';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `tuningStepGet()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  tuningStepGet$Response(params?: {
+  }): Observable<StrictHttpResponse<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: TuningStep;
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ApiService.TuningStepGetPath, 'get');
+    if (params) {
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        'success'?: boolean;
+        'error'?: string;
+        'raw'?: string;
+        'data'?: TuningStep;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `tuningStepGet$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  tuningStepGet(params?: {
+  }): Observable<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: TuningStep;
+}> {
+
+    return this.tuningStepGet$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: TuningStep;
+}>) => r.body as {
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: TuningStep;
+})
+    );
+  }
+
+  /**
+   * Path part for operation tuningStepPut
+   */
+  static readonly TuningStepPutPath = '/tuning_step';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `tuningStepPut()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  tuningStepPut$Response(params?: {
+    body?: any
+  }): Observable<StrictHttpResponse<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: any;
+}>> {
+
+    const rb = new RequestBuilder(this.rootUrl, ApiService.TuningStepPutPath, 'put');
+    if (params) {
+      rb.body(params.body, 'application/json');
+    }
+
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<{
+        'success'?: boolean;
+        'error'?: string;
+        'raw'?: string;
+        'data'?: any;
+        }>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `tuningStepPut$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  tuningStepPut(params?: {
+    body?: any
+  }): Observable<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: any;
+}> {
+
+    return this.tuningStepPut$Response(params).pipe(
+      map((r: StrictHttpResponse<{
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: any;
+}>) => r.body as {
+'success'?: boolean;
+'error'?: string;
+'raw'?: string;
+'data'?: any;
 })
     );
   }

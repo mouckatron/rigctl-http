@@ -1,18 +1,33 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm">
+    <div class="col-xs">
       <button (click)="powerOn();" class="btn btn-success">Power On</button>
     </div>
-    <div class="col-sm">
+    <div class="col-xs">
       <button (click)="powerOff();" class="btn btn-danger">Power Off</button>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-sm-8">
-      <input type="text" #frequencyInput [value]="frequency" (keyup.enter)="setFrequency(frequencyInput.value);" />
+    <div class="col-xs-12">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-danger btn-number" data-type="minus" (click)="decreaseFrequency();">
+            <i class="fas fa-minus"></i>
+          </button>
+        </span>
+        <input type="text" #frequencyInput [value]="frequency" (keyup.enter)="setFrequency(frequencyInput.value);" class="form-control input-number" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-success btn-number" data-type="plus" (click)="increaseFrequency();">
+            <i class="fas fa-plus"></i>
+          </button>
+        </span>
+      </div>
     </div>
-    <div class="col-sm-4">
+  </div>
+
+  <div class="row">
+    <div class="col-xs-8">
       <div ngbDropdown class="d-inline-block">
         <button class="btn btn-outline-primary" id="mode" ngbDropdownToggle>Mode</button>
         <div ngbDropdownMenu aria-labelledby="mode">
